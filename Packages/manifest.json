@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.tobii.gaming.sdk": "file:C:/Users/WIN10/Downloads/TobiiUnitySDK_5.0.0.3",
+    "com.tobii.gaming.sdk": "file:C:/Users/57048/Downloads",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.15",

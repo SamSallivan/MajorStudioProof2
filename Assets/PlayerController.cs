@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (TobiiAPI.GetUserPresence().IsUserPresent() && TobiiAPI.GetGazePoint().IsRecent(0.05f))
                 {
-                    cursor.GetComponent<Renderer>().material.SetColor("Color", Color.red);
+                    //cursor.GetComponent<Renderer>().material.SetColor("Color", Color.red);
 
                     if (dashCharged)
                     {
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
                 windVFX.GetComponent<ParticleSystem>().Stop();
             }
-            if (transform.rotation == cursor.transform.rotation)
+            if (Quaternion.Angle(transform.rotation, cursor.transform.rotation) <= 5)
             {
                 isDashing = false;
             }

@@ -8,9 +8,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
+  - MovingPlatform
+  - TargetablePlatform
+  - KillZone
+  - KillZonePlatform
   - 
   - 
   - 
@@ -32,11 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
   m_SortingLayers:
   - name: Default
     uniqueID: 0

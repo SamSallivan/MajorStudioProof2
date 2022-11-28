@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject chargeBarUI;
     public GameObject chargeBarBonusUI;
+    public Image chargeCircleUI;
+    public Image chargeCircleBonusUI;
+    public GameObject pieCursor;
     public GameObject eyeIconUI1;
     public GameObject eyeIconUI2;
 
@@ -69,6 +72,7 @@ public class PlayerController : MonoBehaviour
         Vector3 curPosition = mainCam.ScreenToWorldPoint(curScreenPoint);
         rectCursor.transform.position = curPosition;
         rectCursor.transform.rotation = cursor.transform.rotation;
+        //pieCursor.GetComponent<RectTransform>().position = screenPoint;
 
         if (!isDashing)
         {
@@ -81,19 +85,24 @@ public class PlayerController : MonoBehaviour
                 //cursor.GetComponent<Renderer>().material.SetColor("Color", Color.red);
                 eyeIconUI1.SetActive(true);
                 eyeIconUI2.SetActive(false);
-                chargeBarBonusUI.SetActive(false);
-                chargeTime = 0;
+                //chargeTime = 0;
+                maxDashDistance = 35 + chargeTime * 7.5f;
 
                 if (dashCharged)
                 {
-                    chargeTime = 0;
-                    maxDashDistance = 35;
+                    //chargeTime = 0;
+                    //maxDashDistance = 35;
                     dashCharged = false;
                     isDashing = true;
                     windVFX.GetComponent<ParticleSystem>().Play();
                 }
                 else
                 {
+                    chargeTime = 0;
+                    maxDashDistance = 35 + chargeTime * 7.5f;
+                    chargeBarBonusUI.SetActive(false);
+                    chargeCircleBonusUI.gameObject.SetActive(false);
+
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(gazePos), out hit, Mathf.Infinity, mask))
                     {
                         cursor.SetActive(true);
@@ -102,6 +111,7 @@ public class PlayerController : MonoBehaviour
 
                         rectCursor.SetActive(true);
                         chargeBarUI.GetComponent<RectTransform>().sizeDelta = new Vector2(maxDashDistance / Vector3.Distance(hit.point, transform.position) * 100, 100);
+                        chargeCircleUI.fillAmount = maxDashDistance / Vector3.Distance(hit.point, transform.position);
                         if (chargeBarUI.GetComponent<RectTransform>().sizeDelta.x >= 100)
                         {
                             chargeBarUI.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
@@ -111,16 +121,19 @@ public class PlayerController : MonoBehaviour
                         {
                             rectCursor.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                             chargeBarUI.GetComponent<Image>().color = Color.red;
+                            chargeCircleUI.color = Color.red;
                         }
                         else if (Vector3.Distance(hit.point, transform.position) > maxDashDistance)
                         {
                             rectCursor.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
                             chargeBarUI.GetComponent<Image>().color = Color.yellow;
+                            chargeCircleUI.color = Color.yellow;
                         }
                         else
                         {
                             rectCursor.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.green;
                             chargeBarUI.GetComponent<Image>().color = Color.green;
+                            chargeCircleUI.color = Color.green;
                         }
 
                     }
@@ -162,7 +175,9 @@ public class PlayerController : MonoBehaviour
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(gazePos), out hit, Mathf.Infinity, mask))
                 {
                     chargeBarBonusUI.SetActive(true);
+                    chargeCircleBonusUI.gameObject.SetActive(true);
                     chargeBarBonusUI.GetComponent<RectTransform>().sizeDelta = new Vector2(maxDashDistance / Vector3.Distance(hit.point, transform.position) * 100, 100);
+                    chargeCircleBonusUI.fillAmount = maxDashDistance / Vector3.Distance(hit.point, transform.position);
                     if (chargeBarBonusUI.GetComponent<RectTransform>().sizeDelta.x >= 100)
                     {
                         chargeBarBonusUI.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
@@ -172,16 +187,19 @@ public class PlayerController : MonoBehaviour
                     {
                         rectCursor.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                         chargeBarUI.GetComponent<Image>().color = Color.red;
+                            chargeCircleUI.color = Color.red;
                     }
                     else if (Vector3.Distance(hit.point, transform.position) > maxDashDistance)
                     {
                         rectCursor.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
                         chargeBarUI.GetComponent<Image>().color = Color.yellow;
+                            chargeCircleUI.color = Color.yellow;
                     }
                     else
                     {
                         rectCursor.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.green;
                         chargeBarUI.GetComponent<Image>().color = Color.green;
+                        chargeCircleUI.color = Color.green;
                     }
                 }
                 if (Physics.SphereCast(transform.position, targetingRadius, Camera.main.ScreenPointToRay(gazePos).direction, out hitSphere, Mathf.Infinity, LayerMask.GetMask("MovingPlatform", "TargetablePlatform")))

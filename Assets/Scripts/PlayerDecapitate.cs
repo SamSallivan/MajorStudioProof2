@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-using Tobii.Gaming;
+
 
 //Enabled when player dies
 //Controlls the game restart function

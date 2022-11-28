@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tobii.Gaming;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using Unity.Burst.CompilerServices;
@@ -9,7 +8,7 @@ using Unity.Burst.CompilerServices;
 public class PlayerController : MonoBehaviour
 {
     public bool debugWithMouse;
-    GazePoint gazePoint;
+    //GazePoint gazePoint;
 
     public Camera mainCam;
     public GameObject cursor;
@@ -54,14 +53,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gazePoint = TobiiAPI.GetGazePoint();
+        //gazePoint = TobiiAPI.GetGazePoint();
         Vector2 gazePos;
         if (debugWithMouse)
         {
             gazePos = Input.mousePosition;
         }
-        else {
-            gazePos = gazePoint.Screen;
+        else
+        {
+            gazePos = Input.mousePosition;
         }
 
         Vector3 screenPoint = mainCam.WorldToScreenPoint(rectCursor.transform.position);
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit hitSphere;
             LayerMask mask = LayerMask.GetMask("Default", "MovingPlatform", "KillZonePlatform");
 
-            if ((!debugWithMouse && TobiiAPI.GetUserPresence().IsUserPresent() && TobiiAPI.GetGazePoint().IsRecent(0.05f)) || (debugWithMouse && !Input.GetMouseButton(0)))
+            if ((debugWithMouse && !Input.GetMouseButton(0)))
             {
                 //cursor.GetComponent<Renderer>().material.SetColor("Color", Color.red);
                 eyeIconUI1.SetActive(true);
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-            else if ((!debugWithMouse && TobiiAPI.GetUserPresence().IsUserPresent() && !TobiiAPI.GetGazePoint().IsRecent(0.15f)) || (debugWithMouse && Input.GetMouseButton(0)))
+            else if ((debugWithMouse && Input.GetMouseButton(0)))
             {
                 eyeIconUI1.SetActive(false);
                 eyeIconUI2.SetActive(true);
@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour
                         dashCharged = true;
                     }
                 }
-                else if(Vector3.Distance(cursor.transform.position, transform.position) <= maxDashDistance)
+                else if (Vector3.Distance(cursor.transform.position, transform.position) <= maxDashDistance)
                 {
                     dashCharged = true;
                 }
@@ -224,12 +224,13 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else if(isDashing){
+        else if (isDashing)
+        {
             if (targetedPlatform != null)
             {
                 GameObject target = targetedPlatform.GetComponent<TargetablePlatform>().landingSpots[1];
                 float minDistance = Mathf.Infinity;
-                foreach(GameObject spot in targetedPlatform.GetComponent<TargetablePlatform>().landingSpots)
+                foreach (GameObject spot in targetedPlatform.GetComponent<TargetablePlatform>().landingSpots)
                 {
                     if (Vector3.Distance(transform.position, spot.transform.position) < minDistance)
                     {
@@ -269,7 +270,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform"))// && isDashing)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform"))// && isDashing)
         {
             transform.SetParent(collision.gameObject.transform);
         }
@@ -283,7 +284,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform"))
         {
             transform.SetParent(null);
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 

@@ -987,6 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0792130fe1e9545a724d8ea955ff77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugWithMouse: 0
   mainCam: {fileID: 613782289295452647}
   cursor: {fileID: 0}
   rectCursor: {fileID: 613782287744623848}

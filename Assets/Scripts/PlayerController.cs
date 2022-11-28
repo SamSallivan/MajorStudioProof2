@@ -271,12 +271,31 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform"))// && isDashing)
         {
-            transform.SetParent(collision.gameObject.transform);
+            //transform.SetParent(collision.gameObject.transform);
         }
         /*if (collision.gameObject.layer == LayerMask.NameToLayer("KillZone") || collision.gameObject.layer == LayerMask.NameToLayer("KillZonePlatform"))
         {
             Die();
         }*/
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform"))// && isDashing)
+        {
+            //transform.SetParent(collision.gameObject.transform); 
+
+            GameObject target = collision.gameObject.GetComponent<TargetablePlatform>().landingSpots[1];
+            float minDistance = Mathf.Infinity;
+            foreach (GameObject spot in collision.gameObject.GetComponent<TargetablePlatform>().landingSpots)
+            {
+                if (Vector3.Distance(transform.position, spot.transform.position) < minDistance)
+                {
+                    minDistance = Vector3.Distance(transform.position, spot.transform.position);
+                    target = spot;
+                }
+            }
+            transform.position = target.transform.position;
+        }
     }
     void OnCollisionExit(Collision collision)
     {

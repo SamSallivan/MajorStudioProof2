@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WallPlaneKill
+  m_Name: WallHalo
   m_Shader: {fileID: -6465566751694194690, guid: 6a7611bca2042b341a6187f3aa2c2543, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -38,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_37674cee22c44c9bb19484568a3bf7ab:
-        m_Texture: {fileID: 2800000, guid: 62f77af381afbf340a1202db1fe584a0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 292431e8db5bfb04e9f36887e371c088, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -99,7 +99,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_CA5DE183: 0.25
+    - Vector1_CA5DE183: 0.01
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -128,8 +128,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_7e39ef67e7bc4994b9a2db1a1f67e93b: {r: 1825.2128, g: 0, b: 0, a: 1}
-    - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: 3, g: 3, b: 0, a: 0}
+    - Color_7e39ef67e7bc4994b9a2db1a1f67e93b: {r: 144.56471, g: 766.9961, b: 0, a: 1}
+    - Vector2_96ffc35c0ae54303a2af21cbfe685859: {r: -0.07, g: 0.42, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

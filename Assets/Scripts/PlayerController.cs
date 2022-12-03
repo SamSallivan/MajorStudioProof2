@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Tobii.Gaming;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine;
 using UnityEngine.UI;
-using Unity.Burst.CompilerServices;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -42,21 +42,21 @@ public class PlayerController : MonoBehaviour
 
     public GameObject windVFX;
 
-    public PostProcessVolume volume;
+    public Volume volume;
     public Bloom bloom;
     public ChromaticAberration ca;
-    public ColorGrading cg;
+    //public ColorGrading cg;
     public Vignette vg;
 
     void Start()
     {
         playerDecapitate = GetComponentInChildren<PlayerDecapitate>(true);
 
-        volume = FindObjectOfType<PostProcessVolume>();
-        volume.profile.TryGetSettings(out bloom);
-        volume.profile.TryGetSettings(out ca);
-        volume.profile.TryGetSettings(out cg);
-        volume.profile.TryGetSettings(out vg);
+        volume = FindObjectOfType<Volume>();
+        volume.profile.TryGet(out bloom);
+        volume.profile.TryGet(out ca);
+        //volume.profile.TryGet(out cg);
+        volume.profile.TryGet(out vg);
     }
 
     // Update is called once per frame
@@ -122,6 +122,7 @@ public class PlayerController : MonoBehaviour
                         if (targetedPlatform != null && targetedPlatform != hitSphere.collider.gameObject)
                         {
                             targetedPlatform.GetComponent<Renderer>().material.color = Color.white;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white);
                         }
                         targetedPlatform = hitSphere.collider.gameObject;
 
@@ -129,23 +130,27 @@ public class PlayerController : MonoBehaviour
 
                         if (Vector3.Distance(transform.position, targetedPlatform.transform.position) > maxChargedDashDistance)
                         {
-                            targetedPlatform.GetComponent<Renderer>().material.color = Color.red;
+                            //targetedPlatform.GetComponent<Renderer>().material.color = Color.red;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
                             chargeCircleUI.color = Color.red;
                         }
                         else if (Vector3.Distance(transform.position, targetedPlatform.transform.position) > maxBaseDashDistance)
                         {
-                            targetedPlatform.GetComponent<Renderer>().material.color = Color.yellow;
+                            //targetedPlatform.GetComponent<Renderer>().material.color = Color.yellow;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
                             chargeCircleUI.color = Color.yellow;
                         }
                         else
                         {
-                            targetedPlatform.GetComponent<Renderer>().material.color = Color.green;
+                            //targetedPlatform.GetComponent<Renderer>().material.color = Color.green;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
                             chargeCircleUI.color = Color.green;
                         }
                     }
                     else if (targetedPlatform != null)
                     {
                         targetedPlatform.GetComponent<Renderer>().material.color = Color.white;
+                        targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white);
                         targetedPlatform = null;
                     }
 
@@ -209,15 +214,18 @@ public class PlayerController : MonoBehaviour
                         chargeCircleBonusUI.fillAmount = dashDistance / Vector3.Distance(targetedPlatform.transform.position, transform.position);
                         if (Vector3.Distance(transform.position, targetedPlatform.transform.position) > maxChargedDashDistance)
                         {
-                            targetedPlatform.GetComponent<Renderer>().material.color = Color.red;
+                            //targetedPlatform.GetComponent<Renderer>().material.color = Color.red;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
                         }
                         else if (Vector3.Distance(transform.position, targetedPlatform.transform.position) > maxBaseDashDistance)
                         {
-                            targetedPlatform.GetComponent<Renderer>().material.color = Color.yellow;
+                            //targetedPlatform.GetComponent<Renderer>().material.color = Color.yellow;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
                         }
                         else
                         {
-                            targetedPlatform.GetComponent<Renderer>().material.color = Color.green;
+                            //targetedPlatform.GetComponent<Renderer>().material.color = Color.green;
+                            targetedPlatform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
                         }
                     }
                 }
@@ -380,7 +388,7 @@ public class PlayerController : MonoBehaviour
     {
         bloom.intensity.value = 10;
         ca.intensity.value = 10;
-        cg.mixerGreenOutRedIn.value = -75;
+        //cg.mixerGreenOutRedIn.value = -75;
         vg.intensity.value = 0.3f;
 
         playerDecapitate.gameObject.SetActive(true);

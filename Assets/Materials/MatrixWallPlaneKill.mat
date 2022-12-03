@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WallPlaneKill
+  m_Name: MatrixWallPlaneKill
   m_Shader: {fileID: -6465566751694194690, guid: 6a7611bca2042b341a6187f3aa2c2543, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,11 +34,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_1:
-        m_Texture: {fileID: 2800000, guid: 292431e8db5bfb04e9f36887e371c088, type: 3}
+        m_Texture: {fileID: 2800000, guid: 62f77af381afbf340a1202db1fe584a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_37674cee22c44c9bb19484568a3bf7ab:
-        m_Texture: {fileID: 2800000, guid: 62f77af381afbf340a1202db1fe584a0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 292431e8db5bfb04e9f36887e371c088, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:

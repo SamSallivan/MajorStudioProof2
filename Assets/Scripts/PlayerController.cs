@@ -344,10 +344,10 @@ public class PlayerController : MonoBehaviour
         {
             //transform.SetParent(collision.gameObject.transform);
         }
-        /*if (collision.gameObject.layer == LayerMask.NameToLayer("KillZone") || collision.gameObject.layer == LayerMask.NameToLayer("KillZonePlatform"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("KillZone") || collision.gameObject.layer == LayerMask.NameToLayer("KillZonePlatform"))
         {
             Die();
-        }*/
+        }
     }
     void OnCollisionStay(Collision collision)
     {
@@ -386,10 +386,10 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        bloom.intensity.value = 10;
+        bloom.intensity.value = 100;
         ca.intensity.value = 10;
         //cg.mixerGreenOutRedIn.value = -75;
-        vg.intensity.value = 0.3f;
+        //vg.intensity.value = 0.3f;
 
         playerDecapitate.gameObject.SetActive(true);
         playerDecapitate.Decapitate(transform, transform.up);

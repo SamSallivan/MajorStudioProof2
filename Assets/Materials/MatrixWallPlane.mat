@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WallPlane
+  m_Name: MatrixWallPlane
   m_Shader: {fileID: -6465566751694194690, guid: 6a7611bca2042b341a6187f3aa2c2543, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

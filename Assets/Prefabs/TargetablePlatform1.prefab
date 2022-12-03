@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1589173689970246277}
   - component: {fileID: 1589173689970246276}
   - component: {fileID: 1589173689970246275}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: target2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ SphereCollider:
   m_GameObject: {fileID: 1589173689970246273}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 1589173690513658346}
   - component: {fileID: 1589173690513658345}
   - component: {fileID: 1589173690513658344}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: target1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ SphereCollider:
   m_GameObject: {fileID: 1589173690513658358}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

@@ -48,6 +48,13 @@ public class PlayerController : MonoBehaviour
     //public ColorGrading cg;
     public Vignette vg;
 
+    public AudioClip chargeSFX;
+    public AudioClip chargedSFX;
+    public AudioClip shotSFX;
+    public AudioClip landSFX;
+    public AudioClip deathFX;
+    public AudioSource audioSource;
+
     void Start()
     {
         playerDecapitate = GetComponentInChildren<PlayerDecapitate>(true);
@@ -57,6 +64,8 @@ public class PlayerController : MonoBehaviour
         volume.profile.TryGet(out ca);
         //volume.profile.TryGet(out cg);
         volume.profile.TryGet(out vg);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -109,6 +118,7 @@ public class PlayerController : MonoBehaviour
                     dashCharged = false;
                     isDashing = true;
                     windVFX.GetComponent<ParticleSystem>().Play();
+                    audioSource.PlayOneShot(shotSFX);
                 }
                 else
                 {
@@ -263,27 +273,37 @@ public class PlayerController : MonoBehaviour
 
                 if (targetedPlatform != null)
                 {
-                    if (Vector3.Distance(transform.position, targetedPlatform.transform.position) <= dashDistance)
+                    if (Vector3.Distance(transform.position, targetedPlatform.transform.position) <= dashDistance && !dashCharged)
                     {
                         dashCharged = true;
+                        audioSource.Stop();
+                        audioSource.PlayOneShot(chargedSFX);
                     }
                     else
                     {
-                        if (chargeTime < maxChargedTime)
+                        if (chargeTime < maxChargedTime && !dashCharged)
                         {
                             chargeTime += Time.deltaTime;
+                            if(!audioSource.isPlaying){
+                                audioSource.PlayOneShot(chargeSFX);
+                            }
                         }
                     }
                 }
-                else if(Vector3.Distance(cursor.transform.position, transform.position) <= dashDistance)
+                else if(Vector3.Distance(cursor.transform.position, transform.position) <= dashDistance && !dashCharged)
                 {
                     dashCharged = true;
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(chargedSFX);
                 }
                 else
                 {
-                    if (chargeTime < maxChargedTime)
+                    if (chargeTime < maxChargedTime && !dashCharged)
                     {
                         chargeTime += Time.deltaTime;
+                        if(!audioSource.isPlaying){
+                            audioSource.PlayOneShot(chargeSFX);
+                        }
                     }
                 }
             }
@@ -292,7 +312,7 @@ public class PlayerController : MonoBehaviour
         else if(isDashing){
             if (targetedPlatform != null)
             {
-                GameObject target = targetedPlatform.GetComponent<TargetablePlatform>().landingSpots[1];
+                GameObject target = targetedPlatform.GetComponent<TargetablePlatform>().landingSpots[0];
                 float minDistance = Mathf.Infinity;
                 foreach(GameObject spot in targetedPlatform.GetComponent<TargetablePlatform>().landingSpots)
                 {
@@ -303,7 +323,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * 5f);
-                if (Vector3.Distance(transform.position, target.transform.position) < 5)
+                if (Vector3.Distance(transform.position, target.transform.position) < 1)
                 {
                     transform.rotation = Quaternion.Lerp(transform.rotation, target.transform.rotation, Time.deltaTime * 10f);
 
@@ -311,6 +331,7 @@ public class PlayerController : MonoBehaviour
                     if (Quaternion.Angle(transform.rotation, target.transform.rotation) <= 5)
                     {
                         isDashing = false;
+                        audioSource.PlayOneShot(landSFX);
                     }
                 }
             }
@@ -326,6 +347,7 @@ public class PlayerController : MonoBehaviour
                 if (Quaternion.Angle(transform.rotation, cursor.transform.rotation) <= 5)
                 {
                     isDashing = false;
+                    audioSource.PlayOneShot(landSFX);
                 }
             }
         }
@@ -355,7 +377,7 @@ public class PlayerController : MonoBehaviour
         {
             //transform.SetParent(collision.gameObject.transform); 
 
-            GameObject target = collision.gameObject.GetComponent<TargetablePlatform>().landingSpots[1];
+            GameObject target = collision.gameObject.GetComponent<TargetablePlatform>().landingSpots[0];
             float minDistance = Mathf.Infinity;
             foreach (GameObject spot in collision.gameObject.GetComponent<TargetablePlatform>().landingSpots)
             {
@@ -384,6 +406,11 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
+
+    private void OnTriggerStay(Collider other) {
+        
+    }
+
     public void Die()
     {
         bloom.intensity.value = 100;

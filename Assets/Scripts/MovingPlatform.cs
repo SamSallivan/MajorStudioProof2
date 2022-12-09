@@ -18,17 +18,20 @@ public class MovingPlatform : TargetablePlatform
     // Update is called once per frame
     void Update()
     {
-
-        if (Vector3.Distance(platform.transform.position, targets[index].transform.position) >= 1)
+        base.Update();
+        if (!TimeManager.instance.timeIsStopped)
         {
-            platform.transform.position = Vector3.MoveTowards(platform.transform.position, targets[index].transform.position, speed/100);
-        }
-        else
-        {
-            index++;
-            if (index > targets.Count - 1)
+            if (Vector3.Distance(platform.transform.position, targets[index].transform.position) >= 1)
             {
-                index = 0;
+                platform.transform.position = Vector3.MoveTowards(platform.transform.position, targets[index].transform.position, speed / 100);
+            }
+            else
+            {
+                index++;
+                if (index > targets.Count - 1)
+                {
+                    index = 0;
+                }
             }
         }
     }

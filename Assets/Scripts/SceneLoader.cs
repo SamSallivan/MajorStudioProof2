@@ -25,7 +25,7 @@ public class SceneLoader : MonoBehaviour
         else if (alphaIncrease){
             resumeButton.gameObject.SetActive(false);
             nextButton.gameObject.SetActive(true);
-            //MenuManager.instance.Pause();
+            MenuManager.instance.Pause();
             image.color = new Vector4(image.color.r,image.color.g, image.color.b, Mathf.MoveTowards(image.color.a, 1, Time.deltaTime*2));
             if(image.color.a >= 1){
                 SceneManager.LoadScene(scene, LoadSceneMode.Single);

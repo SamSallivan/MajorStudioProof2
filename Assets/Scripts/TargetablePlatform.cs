@@ -6,7 +6,6 @@ public class TargetablePlatform : MonoBehaviour
 {
     public List<GameObject> landingSpots;
     public float bonusTime;
-    public GameObject matrix;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,16 +15,13 @@ public class TargetablePlatform : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (matrix != null)
+        if (bonusTime > 0)
         {
-            if (bonusTime > 0)
-            {
-                matrix.SetActive(true);
-            }
-            else
-            {
-                matrix.SetActive(false);
-            }
+            GetComponent<Renderer>().material.SetColor("Color_matrix", new Color(0, 27, 191, 255) * 2073741824); ;
+        }
+        else
+        {
+            GetComponent<Renderer>().material.SetColor("Color_matrix", Color.white * 2073741824);
         }
     }
 }

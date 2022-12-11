@@ -1,17 +1,16 @@
+
 using System.Collections;
 using System.Collections.Generic;
-using Tobii.Gaming;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
 
-public class PlayerController : MonoBehaviour
+public class ZericPlayerController : MonoBehaviour
 {
     public bool debugWithMouse;
     public bool enableChargeBar;
-    GazePoint gazePoint;
 
     public Camera mainCam;
     public GameObject cursor;
@@ -80,16 +79,8 @@ public class PlayerController : MonoBehaviour
         {
             float chargeRate = (maxChargedDashDistance - maxBaseDashDistance) / maxChargedTime;
 
-            gazePoint = TobiiAPI.GetGazePoint();
             Vector2 gazePos;
-            if (debugWithMouse)
-            {
-                gazePos = Input.mousePosition;
-            }
-            else
-            {
-                gazePos = gazePoint.Screen;
-            }
+            gazePos = Input.mousePosition;
 
             if (!isDashing)
             {
@@ -97,7 +88,7 @@ public class PlayerController : MonoBehaviour
                 RaycastHit hitSphere;
                 LayerMask mask = LayerMask.GetMask("Default", "MovingPlatform", "KillZonePlatform");
 
-                if ((!debugWithMouse && TobiiAPI.GetUserPresence().IsUserPresent() && TobiiAPI.GetGazePoint().IsRecent(0.05f)) || (debugWithMouse && !Input.GetMouseButton(0)))
+                if ((debugWithMouse && !Input.GetMouseButton(0)))
                 {
 
                     if (targetedPlatform == null)
@@ -211,7 +202,7 @@ public class PlayerController : MonoBehaviour
 
                     }
                 }
-                else if ((!debugWithMouse && TobiiAPI.GetUserPresence().IsUserPresent() && !TobiiAPI.GetGazePoint().IsRecent(0.15f)) || (debugWithMouse && Input.GetMouseButton(0)))
+                else if ((debugWithMouse && Input.GetMouseButton(0)))
                 {
 
                     if (targetedPlatform != null)
@@ -337,7 +328,7 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                     transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * 5f);
-                    if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                    if (Vector3.Distance(transform.position, target.transform.position) < 1)
                     {
                         transform.rotation = Quaternion.Lerp(transform.rotation, target.transform.rotation, Time.deltaTime * 10f);
 
@@ -414,7 +405,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform") || collision.gameObject.layer == LayerMask.NameToLayer("TargetablePlatform"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform") || collision.gameObject.layer == LayerMask.NameToLayer("TargetablePlatform"))
         {
             totalTime += collision.gameObject.GetComponent<TargetablePlatform>().bonusTime;
             collision.gameObject.GetComponent<TargetablePlatform>().bonusTime = 0;
@@ -448,7 +439,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("MovingPlatform"))
         {
             transform.SetParent(null);
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -460,8 +451,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other) {
-        
+    private void OnTriggerStay(Collider other)
+    {
+
     }
 
     public void Die()

@@ -2301,7 +2301,7 @@
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_7e39ef67e7bc4994b9a2db1a1f67e93b",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "Color_matrix",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",

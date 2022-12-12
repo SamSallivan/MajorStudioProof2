@@ -1623,9 +1623,9 @@ MonoBehaviour:
   ExtendedViewSettings:
     EyeHeadTrackingRatio: 0.85
     GazeResponsiveness: 0.5
-    CameraMaxAngleYaw: 90
-    CameraMaxAnglePitchUp: 70
-    CameraMaxAnglePitchDown: 40
+    CameraMaxAngleYaw: 360
+    CameraMaxAnglePitchUp: 360
+    CameraMaxAnglePitchDown: 360
     HeadSensitivityPitch: 1
     HeadSensitivityYaw: 1
   CollapseWhenAiming: 1

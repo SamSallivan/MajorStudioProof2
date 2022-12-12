@@ -45,9 +45,9 @@ namespace Tobii.Gaming
         {
             EyeHeadTrackingRatio    = Mathf.Clamp(EyeHeadTrackingRatio,     0, 1);
             GazeResponsiveness      = Mathf.Clamp(GazeResponsiveness,       0, 1);
-            CameraMaxAngleYaw       = Mathf.Clamp(CameraMaxAngleYaw,        0, 180);
-            CameraMaxAnglePitchUp   = Mathf.Clamp(CameraMaxAnglePitchUp,    0, 90);
-            CameraMaxAnglePitchDown = Mathf.Clamp(CameraMaxAnglePitchDown,  0, 90);
+            CameraMaxAngleYaw       = Mathf.Clamp(CameraMaxAngleYaw,        0, 360);
+            CameraMaxAnglePitchUp   = Mathf.Clamp(CameraMaxAnglePitchUp,    0, 360);
+            CameraMaxAnglePitchDown = Mathf.Clamp(CameraMaxAnglePitchDown,  0, 360);
             HeadSensitivityYaw      = Mathf.Clamp(HeadSensitivityYaw,       0, 5);
             HeadSensitivityPitch    = Mathf.Clamp(HeadSensitivityPitch,     0, 5);
         }
